@@ -69,3 +69,4 @@ shopping_list.append("хлеб")
 shopping_list.append("молоко")
 shopping_list.append("яйца")
 print(shopping_list)
+1
