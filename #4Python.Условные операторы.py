@@ -185,4 +185,4 @@ if result1 and result2:
 elif result1 or result2:
     print("Хотя бы одно истинно")
 else:
-    print("Оба ложны")
+    print("Оба ложны")1
