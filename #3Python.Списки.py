@@ -203,4 +203,4 @@ print(week)
 # Сохрани результат в переменную result и выведи её на экран.
 letters = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H']
 result = letters[0:6:2]
-print(result)
+print(result)/
