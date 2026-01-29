@@ -289,4 +289,4 @@ queue = ["Игорь", "Ксения", "Михаил"]
 queue.insert(2, "Ольга")
 queue.insert(0, "Алесандр")
 queue.append("Яна")
-print(queue)
+print(queue).
