@@ -350,4 +350,4 @@ my_age = 25
 home_address = "Moscow"
 print("Name:", my_name)
 print("Age:", my_age)
-print("City:", home_address)
+print("City:", home_address
