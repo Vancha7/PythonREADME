@@ -118,7 +118,7 @@ with open("days.txt", "r", encoding="utf-8") as file:
     total_lines = len(lines)
     print(f"В файле days.txt {total_lines} строк(и).")
 
-# Задача 15 (Работа с файлами - чтение и запись в одном скрипте)
+# Задача 15: (Работа с файлами - чтение и запись в одном скрипте)
 # 1. Прочитайте всё содержимое файла 'source.txt'.
 # 2. Создайте новый файл 'backup.txt'.
 # 3. Запишите в 'backup.txt' прочитанное содержимое.
@@ -127,3 +127,98 @@ with open("days.txt", "r", encoding="utf-8") as file:
     read = file.read()
 with open("backup.txt", "a+", encoding="utf-8") as file:
     file.write(read)
+
+# Задача 16: (Работа с файлами - простое построчное чтение)
+# В файле 'list.txt' каждая строка — это отдельный элемент списка (например, фрукт).
+# Прочитайте файл построчно и выведите каждую строку на экран с префиксом '- ' (дефис и пробел).
+# Пример вывода:
+# - Яблоко
+# - Банан
+# - Апельсин
+# Используйте контекстный менеджер with.
+with open("list.txt", "r", encoding="utf-8") as file:
+    for line in file:
+        line = line.strip()
+        print(f'- {line}')
+
+# Задача 17: (Работа с файлами - проверка на пустой файл)
+# Напишите программу, которая открывает файл 'data.txt'.
+# Если файл пустой (не содержит символов), выведите 'Файл пуст.'
+# Если файл не пустой, выведите 'Файл содержит данные.'.
+# Используйте контекстный менеджер with.
+# Подсказка: метод .read() возвращает пустую строку '' для пустого файла.
+with open("data.txt", "r", encoding="utf-8") as file:
+    content = file.read()
+    if not content:
+      print(f"Файл пуст")
+    else:
+      print(f"Файл содержит данные")
+
+# Задача 18: (Работа с файлами - создание файла с числами)
+# Создайте новый файл 'digits.txt'.
+# Запишите в него числа от 1 до 5, каждое с новой строки.
+# Используйте контекстный менеджер with.
+with open("digits.txt", "a+", encoding="utf-8") as file:
+    file.write("1")
+    file.write("\n2")
+    file.write("\n3")
+    file.write("\n4")
+    file.write("\n5")
+
+# Задача 19: (Работа с файлами - чтение и вывод чисел)
+# Прочитайте файл 'digits.txt', который вы создали в предыдущей задаче.
+# Выведите каждое прочитанное число на экран, дописывая перед ним текст 'Число: '.
+# Используйте контекстный менеджер with.
+with open("digits.txt", "r", encoding="utf-8") as file:
+    for line in file:
+        number = line.strip()
+        print(f'Число: {number}')
+
+# Задача 20: (Работа с файлами - итоговая, чтение и запись)
+# 1. Создайте новый файл 'hello.txt' и запишите в него строку 'Hello, File!'.
+# 2. Затем откройте этот же файл для чтения, прочитайте его содержимое и выведите на экран.
+# Используйте контекстный менеджер with (можно два раза).
+with open("hello.txt", "w", encoding="utf-8") as file:
+    file.write("Hello, File!")
+with open("hello.txt", "r", encoding="utf-8") as file:
+    content = file.read()
+    print(content)
+
+# Задача 21: (Работа с файлами - запись списка строк)
+# Дан список: languages = ['Python', 'Java', 'C++', 'JavaScript']
+# Создайте файл 'languages.txt' и запишите в него каждый элемент списка с новой строки.
+# Используйте контекстный менеджер with.
+languages = ['Python', 'Java', 'C++', 'JavaScript']
+with open("languages.txt", "a+", encoding="utf-8") as file:
+    for language in languages:
+        file.write(language + "\n")
+
+# Задача 22: (Работа с файлами - чтение всего файла)
+# Прочитайте всё содержимое файла 'message.txt' (который вы создали в задаче 21) и выведите его на экран.
+# Используйте контекстный менеджер with.
+with open("message.txt", "r", encoding="utf-8") as file:
+    content = file.read()
+    print(content)
+
+# Задача 23: (Работа с файлами - добавление в конец файла)
+# Откройте существующий файл 'message.txt' и добавьте в его конец новую строку: 'Вторая строка.'.
+# Убедитесь, что новая строка начинается с новой строки.
+# Используйте контекстный менеджер with.
+with open("message.txt", "a+", encoding="utf-8") as file:
+    file.write("\nВторая строка")
+
+# Задача 24: (Работа с файлами - подсчет строк в файле)
+# Подсчитайте, сколько строк в файле 'message.txt'.
+# Выведите результат в формате: 'В файле message.txt [число] строк(и).'
+# Используйте контекстный менеджер with.
+with open("message.txt", "r", encoding="utf-8") as file:
+    lines = file.readlines()
+    stro_lines = len(lines)
+    print(f"В файле message.txt {stro_lines} строк(и).")
+
+# Задача 25 (Работа с файлами - чтение первой строки)
+# Прочитайте и выведите на экран только первую строку из файла 'message.txt'.
+# Используйте контекстный менеджер with.
+with open("message.txt", "r", encoding="utf-8") as file:
+    content = file.readline()
+    print(content)
