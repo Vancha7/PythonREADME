@@ -222,3 +222,58 @@ with open("message.txt", "r", encoding="utf-8") as file:
 with open("message.txt", "r", encoding="utf-8") as file:
     content = file.readline()
     print(content)
+
+# Задача 26 (Работа с файлами - проверка на пустой файл)
+# Напишите программу, которая открывает файл 'report.txt'.
+# Если файл пустой (не содержит символов), выведите 'Файл report.txt пуст.'
+# Если файл не пустой, выведите 'Файл report.txt содержит данные.'.
+# Используйте контекстный менеджер with.
+with open("report.txt", "r", encoding="utf-8") as file:
+    read = file.read()
+    if len(read) <= 0:
+        print(f"Файл report.txt пуст.")
+    else:
+        print(f"Файл report.txt содержит данные.")
+
+# Задача 27 (Работа с файлами - создание и запись в два файла)
+# 1. Создайте файл 'first.txt' и запишите в него строку 'Первый файл.'.
+# 2. Создайте файл 'second.txt' и запишите в него строку 'Второй файл.'.
+# Используйте контекстный менеджер with для каждого файла.
+with open("first.txt", "w", encoding="utf-8") as file:
+    file.write("Первый файл.")
+with open("second.txt", "w", encoding="utf-8") as file:
+    file.write("Второй файл.")
+
+# Задача 28 (Работа с файлами - копирование строки из одного файла в другой)
+# 1. Прочитайте первую строку из файла 'first.txt' (который вы создали в задаче 27).
+# 2. Создайте новый файл 'copy.txt' и запишите в него эту прочитанную строку.
+# Используйте контекстный менеджер with (можно два раза).
+with open("first.txt", "r", encoding="utf-8") as file:
+    content = file.readline()
+with open("copy.txt", "w", encoding="utf-8") as file:
+    file.write(content)
+
+# Задача 29 (Работа с файлами - чтение и вывод всех строк с нумерацией)
+# Прочитайте файл 'languages.txt' (который вы создали ранее).
+# Выведите каждую строку файла на экран с её номером, начиная с 1.
+# Формат вывода: '1. Python', '2. Java' и т.д.
+# Используйте контекстный менеджер with.
+with open("languages.txt", "r", encoding="utf-8") as file:
+    number = 1
+    for line in file:
+        line = line.strip()
+        print(f'{number}: {line}')
+        number += 1
+
+# Задача 30 (Работа с файлами - итоговая, запись и чтение)
+# 1. Создайте файл 'final.txt' и запишите в него две строки: 'Строка 1' и 'Строка 2'.
+# 2. Затем откройте этот файл, прочитайте его построчно и выведите каждую строку на экран.
+# Используйте контекстный менеджер with (можно два раза).
+with open("final.txt", "w", encoding="utf-8") as file:
+    file.write("Строка 1\nСтрока 2")
+with open("final.txt", "r", encoding="utf-8") as file:
+    number = 1
+    for line in file:
+        line = line.strip()
+        print(line)
+        number += 1
