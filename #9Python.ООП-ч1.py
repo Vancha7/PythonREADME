@@ -5,7 +5,7 @@
 # 3. Код должен содержать только объявление класса и атрибута.
 #    Ничего выводить на экран не нужно.
 from ast import increment_lineno
-from itertools import product
+from itertools import product, count
 from turtledemo.penrose import start
 
 
@@ -310,3 +310,76 @@ class Smartphone:
     def make_call(self, phone_number):
         return f"Calling {phone_number} from {self.brand} {self.model}"
 
+# Задача №21 | Общие атрибуты и метод класса
+# 1. Создай класс Counter.
+# 2. Добавь общий (классовый) атрибут count = 0.
+# 3. Добавь метод __init__, который увеличивает общий счётчик count на 1 при создании каждого нового объекта.
+# 4. Добавь классовый метод get_count, который возвращает текущее значение count.
+# 5. Код должен содержать только объявление класса.
+class Counter:
+    count = 0
+    def __init__(self):
+        type(self).count += 1
+    @classmethod
+    def get_count(cls):
+        return cls.count
+
+# Задача №22 | Магический метод __str__
+# 1. Создай класс Laptop.
+# 2. Добавь конструктор, который принимает brand и ram (оперативная память в ГБ).
+# 3. Добавь магический метод __str__, который возвращает строку:
+#    "Ноутбук: {brand}, RAM: {ram} ГБ"
+# 4. Код должен содержать только объявление класса.
+
+class Laptop:
+    def __init__(self, brand, ram):
+        self.brand = brand
+        self.ram = ram
+    def __str__(self):
+        return f"Ноутбук: {self.brand}, RAM: {self.ram} ГБ"
+
+# Задача №23 | Статический метод
+# 1. Создай класс StringUtils.
+# 2. Добавь статический метод is_palindrome, который принимает строку
+#    и возвращает True, если строка читается одинаково слева направо и справа налево,
+#    и False в противном случае.
+#    (Регистр букв учитывать, пробелы не удалять)
+# 3. Код должен содержать только объявление класса.
+class StringUtils:
+    @staticmethod
+    def is_palindrome(s):
+        return s == s[::-1]
+
+# Задача №24 | Композиция классов
+# 1. Создай класс Engine.
+# 2. Добавь конструктор, который принимает horsepower и сохраняет как атрибут.
+# 3. Добавь метод start, который возвращает строку "Engine started".
+# 4. Создай класс Car.
+# 5. Добавь конструктор, который принимает brand и engine (объект класса Engine).
+# 6. Добавь метод start, который вызывает метод start у объекта engine и возвращает его результат.
+# 7. Код должен содержать только объявление двух классов.
+class Engine:
+    def __init__(self, horsepower):
+        self.horsepower = horsepower
+    def start(self):
+        return "Engine started"
+class Car:
+    def __init__(self, brand, engine):
+        self.brand = brand
+        self.engine = engine
+    def start(self):
+        return self.engine.start()
+
+# Задача №25 | Приватные атрибуты и геттеры
+# 1. Создай класс User.
+# 2. Добавь конструктор, который принимает username и password.
+# 3. Сделай атрибут password приватным (__password).
+# 4. Добавь метод check_password, который принимает строку
+#    и возвращает True, если она совпадает с сохранённым паролём, иначе False.
+# 5. Код должен содержать только объявление класса.
+class User:
+    def __init__(self, username, password):
+        self.username = username
+        self.__password = password
+    def check_password(self, password):
+        return password == self.__password
