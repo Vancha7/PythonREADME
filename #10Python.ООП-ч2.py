@@ -307,3 +307,341 @@ savings = SavingsAccount("Иван", 1000)
 savings.add_interest()
 savings.get_balance()
 print(savings.get_balance())
+
+
+# Задание 13: Приватные атрибуты и наследование
+# 1. Создай класс `Parent` с методом `__init__`, который создаёт:
+#    - Публичный атрибут `pub = "публичный"`
+#    - Защищённый атрибут `_prot = "защищённый"`
+#    - Приватный атрибут `__priv = "приватный"` (с двумя подчёркиваниями)
+# 2. Добавь метод `get_priv`, который возвращает значение `__priv`.
+# 3. Создай класс `Child`, который наследует от `Parent`.
+# 4. В классе `Child` добавь метод `try_access`, который пытается:
+#    - Вывести `self.pub`
+#    - Вывести `self._prot`
+#    - Вывести `self.__priv` (закомментируй эту строку, чтобы программа работала)
+#    - Вывести `self.get_priv()` (это работает всегда)
+# 5. Создай объект `child = Child()` и вызови `child.try_access()`.
+# Подсказка: напрямую к `__priv` из дочернего класса доступа нет.
+class Parent:
+    def __init__(self, pub, _prot, __priv):
+        self.pub = pub
+        self._prot = _prot
+        self.__priv = __priv
+    def get_priv(self):
+        return self.__priv
+class Child(Parent):
+    def try_access(self):
+        print(self.pub)
+        print(self._prot)
+#  print(self.__priv)
+        print(self.get_priv())
+child = Child("публичный","защищённый", "приватный")
+child.try_access()
+
+# Задание 14: Наследование и множественный __init__
+# 1. Создай класс `A` с методом `__init__`, который выводит "A init".
+# 2. Создай класс `B` с методом `__init__`, который выводит "B init".
+# 3. Создай класс `C(A, B)` с методом `__init__`, который:
+#    - Выводит "C init"
+#    - Вызывает `super().__init__()`
+# 4. Создай объект класса `C` и посмотри, какие __init__ вызываются и в каком порядке.
+# 5. Выведи `C.__mro__` чтобы увидеть порядок поиска.
+# Подсказка: super() вызывает следующий класс по цепочке MRO.
+class A:
+    def __init__(self):
+        print("A init")
+class B:
+    def __init__(self):
+        print("B init")
+class C(A, B):
+    def __init__(self):
+        print("C init")
+        super().__init__()
+c = C()
+print(C.__mro__)
+
+# Задание 15: Наследование и проверка типов
+# 1. Создай класс `Animal` с методом `speak`, который возвращает "Звук".
+# 2. Создай класс `Dog(Animal)` с методом `speak`, который возвращает "Гав".
+# 3. Создай класс `Cat(Animal)` с методом `speak`, который возвращает "Мяу".
+# 4. Создай функцию `make_sound(animal)`, которая:
+#    - Проверяет, является ли `animal` объектом класса `Animal` (через `isinstance`).
+#    - Если да, вызывает и выводит результат метода `speak`.
+#    - Если нет, выводит "Это не животное".
+# 5. Создай объекты `dog`, `cat` и строку `"привет"`.
+# 6. Вызови функцию для каждого из них.
+class Animal:
+    def speak(self):
+        return "Звук"
+class Dog(Animal):
+    def speak(self):
+        return "Гав"
+class Cat(Animal):
+    def speak(self):
+        return "Мяу"
+def make_sound(animal):
+    if (isinstance(animal, Animal)):
+      print(animal.speak())
+    else:
+      print("Это не животное")
+dog = Dog()
+cat = Cat()
+stri = "привет"
+make_sound(cat)
+make_sound(dog)
+make_sound(stri)
+
+# Задание 16: Наследование и классовые атрибуты
+# 1. Создай класс `Counter` с атрибутом класса `count = 0`.
+# 2. Добавь метод `__init__`, который увеличивает `Counter.count` на 1 при создании каждого нового объекта.
+# 3. Добавь метод `get_count`, который возвращает текущее значение `Counter.count`.
+# 4. Создай класс `SubCounter(Counter)`, внутри `pass`.
+# 5. Создай три объекта: два от `Counter` и один от `SubCounter`.
+# 6. Выведи значение счётчика через `get_count` у любого объекта.
+# Подсказка: атрибуты класса общие для всех наследников, если не переопределены.
+class Counter:
+    count = 0
+    def __init__(self):
+        Counter.count += 1
+    def get_count(self):
+        return Counter.count
+class SubCounter(Counter):
+    pass
+objec = Counter()
+objec1 = Counter()
+objec2 = SubCounter()
+print(objec.get_count())
+
+# Задание 17: super() и доступ к методам родителя
+# 1. Создай класс `Parent` с методом `hello`, который возвращает "Привет от Parent".
+# 2. Создай класс `Child(Parent)`.
+# 3. В классе `Child` переопредели метод `hello`, чтобы он:
+#    - Сначала вызывал родительский метод через `super().hello()` и выводил результат
+#    - Потом выводил "И привет от Child"
+# 4. Создай объект `child = Child()` и вызови его метод `hello()`.
+# Подсказка: print(super().hello()) не сработает, сначала получи результат, потом выводи.
+class Parent:
+    def hello(self):
+        return "Привет от Parent"
+class Child(Parent):
+    def hello(self):
+        get = super().hello()
+        print(get)
+        print("И привет от Child")
+child = Child()
+child.hello()
+
+# Задание 18: Наследование и перегрузка операторов
+# 1. Создай класс `Point` с методом `__init__`, который принимает `x` и `y`.
+# 2. Перегрузи оператор `__add__` (сложение), чтобы он возвращал новый объект `Point`
+#    с координатами `x + other.x` и `y + other.y`.
+# 3. Создай класс `Point3D(Point)` с методом `__init__`, который принимает `x`, `y`, `z`.
+#    Вызови `super().__init__(x, y)` и сохрани `z`.
+# 4. Перегрузи оператор `__add__` в `Point3D`, чтобы он возвращал новый объект `Point3D`
+#    с координатами `x + other.x`, `y + other.y`, `z + other.z`.
+#    Используй `super().__add__(other)` для сложения x и y, и добавь z отдельно.
+# 5. Создай два объекта `p1 = Point3D(1, 2, 3)` и `p2 = Point3D(4, 5, 6)`.
+# 6. Сложи их: `p3 = p1 + p2` и выведи координаты `p3` (например, через `print(p3.x, p3.y, p3.z)`).
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def __add__(self, other):
+        return Point(self.x + other.x, self.y + other.y)
+class Point3D(Point):
+    def __init__(self, x, y, z):
+        super().__init__(x, y)
+        self.z = z
+    def __add__(self, other):
+        return Point3D(self.x + other.x, self.y + other.y, self.z + other.z)
+p1 = Point3D(1, 2, 3)
+p2 = Point3D(4, 5, 6)
+p3 = p1 + p2
+print(p3.x, p3.y, p3.z)
+
+# Задание 19: Наследование и property
+# 1. Создай класс `Rectangle` с методом `__init__`, который принимает `width` и `height`.
+# 2. Добавь свойство `area` (с декоратором `@property`), которое возвращает `width * height`.
+# 3. Создай класс `Square(Rectangle)`.
+# 4. В классе `Square` переопредели `__init__`, чтобы он принимал только `side`.
+#    Вызови `super().__init__(side, side)`.
+# 5. Создай объект `square = Square(5)` и выведи его площадь через свойство `area`.
+# Подсказка: свойство `area` наследуется и работает автоматически.
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    @property
+    def area(self):
+        return self.width * self.height
+class Square(Rectangle):
+    def __init__(self, side):
+        super().__init__(side, side)
+square = Square(5)
+print(square.area)
+
+# Задание 20: Наследование и исключения
+# 1. Создай класс `MyException(Exception)` - пустой (просто `pass`).
+# 2. Создай функцию `check_positive(number)`, которая:
+#    - Если число меньше 0, выбрасывает исключение `MyException` с сообщением "Отрицательное число!".
+#    - Иначе возвращает "Всё хорошо".
+# 3. В основной части программы:
+#    - Оберни вызов `check_positive(-5)` в `try-except`.
+#    - В блоке `except MyException as e` выведи сообщение исключения.
+#    - Добавь блок `else`, который выводит результат, если исключения не было.
+#    - Добавь блок `finally`, который выводит "Проверка завершена".
+# 4. Для проверки вызови функцию ещё раз с числом 10.
+# Подсказка: чтобы передать сообщение в исключение, пиши `raise MyException("текст")`.
+class MyException(Exception):
+    pass
+def check_positive(number):
+    if number < 0:
+        raise MyException("Отрицательное число!")
+    else:
+        print("Всё хорошо")
+try:
+    check_positive(-5)
+except MyException as e:
+    print(e)
+else:
+    print("Всё хорошо")
+finally:
+    print("Проверка завершена")
+try:
+    check_positive(10)
+except MyException as e:
+    print(e)
+else:
+    print("Всё хорошо")
+finally:
+    print("Проверка завершена")
+
+# Задание 21: Наследование и classmethod с наследованием
+# 1. Создай класс `Person` с методом `__init__`, который принимает `name` и `age`.
+# 2. Добавь классовый метод `from_birth_year` (декоратор `@classmethod`), который:
+#    - Принимает `name` и `birth_year`
+#    - Вычисляет возраст как 2026 - birth_year
+#    - Возвращает новый объект `cls(name, возраст)` (используй `cls`, а не `Person`)
+# 3. Создай класс `Student(Person)`, внутри `pass`.
+# 4. Создай объект `student = Student.from_birth_year("Анна", 2000)`.
+# 5. Выведи `student.name` и `student.age`.
+# 6. Выведи тип объекта (`type(student)`) чтобы убедиться, что это Student.
+# Подсказка: использование `cls` в classmethod позволяет создавать объекты того класса,
+#           от которого вызван метод (Person или Student).
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    @classmethod
+    def from_birth_year(cls, name, birth_year):
+        age = 2026 - birth_year
+        return cls(name, age)
+class Student(Person):
+    pass
+student = Student.from_birth_year("Анна", 2000)
+print(student.name, student.age)
+print(type(student))
+
+# Задание 22: Наследование и staticmethod
+# 1. Создай класс `Math` со статическим методом `add` (декоратор `@staticmethod`),
+#    который принимает два числа и возвращает их сумму.
+# 2. Создай класс `AdvancedMath(Math)`, внутри `pass`.
+# 3. Вызови метод `add` через класс `Math` (Math.add(5, 3)) и выведи результат.
+# 4. Вызови метод `add` через класс `AdvancedMath` (AdvancedMath.add(10, 7)) и выведи результат.
+# 5. Вызови метод `add` через объект класса `AdvancedMath` и выведи результат.
+# Подсказка: статические методы не имеют self или cls, работают как обычные функции,
+#           но лежат внутри класса. Наследуются как обычные методы.
+class Math:
+    @staticmethod
+    def add(a, b):
+        return a + b
+class AdvancedMath(Math):
+    pass
+
+print((Math.add(5, 3)))
+print((AdvancedMath.add(10, 7)))
+obj = AdvancedMath()
+print(obj.add(5, 3))
+
+# Задание 23: Наследование и множественные конструкторы
+# 1. Создай класс `User` с методом `__init__`, который принимает `username` и `email`.
+# 2. Добавь классовый метод `from_string` (декоратор `@classmethod`), который:
+#    - Принимает строку вида "username:email"
+#    - Разделяет строку по двоеточию (метод `split(':'))
+#    - Возвращает новый объект `cls(username, email)`
+# 3. Создай класс `Admin(User)`, внутри `pass`.
+# 4. Создай объект `admin = Admin.from_string("admin:admin@site.com")`.
+# 5. Выведи `admin.username` и `admin.email`.
+# Подсказка: split(':') вернёт список из двух элементов.
+class User:
+    def __init__(self, username, email):
+        self.username = username
+        self.email = email
+    @classmethod
+    def from_string(cls, string):
+        username, email = string.split(":")
+        return cls(username, email)
+class Admin(User):
+    pass
+admin = Admin.from_string("admin:admin@site.com")
+print(admin.username, admin.email)
+
+# Задание 24: Наследование и property setter
+# 1. Создай класс `Circle` с методом `__init__`, который принимает `radius`.
+#    Сделай `radius` защищённым атрибутом (`_radius`).
+# 2. Добавь свойство `radius` (геттер), которое возвращает значение `_radius`.
+# 3. Добавь сеттер для `radius` (с декоратором `@radius.setter`), который:
+#    - Проверяет, что новое значение больше 0. Если нет, выводит "Радиус должен быть положительным".
+#    - Если проверка пройдена, присваивает `_radius = value`.
+# 4. Создай класс `BigCircle(Circle)`, внутри `pass`.
+# 5. Создай объект `big = BigCircle(10)`, выведи радиус.
+# 6. Попробуй установить отрицательный радиус: `big.radius = -5`.
+# 7. Установи радиус 15 и выведи его снова.
+# Подсказка: property и его сеттер наследуются и работают так же.
+class Circle:
+    def __init__(self, radius):
+        self._radius = radius
+    @property
+    def radius(self):
+        return self._radius
+    @radius.setter
+    def radius(self, value):
+        if value < 0:
+            print("Радиус должен быть положительным")
+        else:
+            self._radius = value
+class BigCircle(Circle):
+    pass
+big = BigCircle(10)
+print(big.radius)
+big.radius = -5
+big.radius = 15
+print(big.radius)
+
+# Задание 25: Наследование и __slots__
+# 1. Создай класс `Point` с __slots__ = ['x', 'y'].
+# 2. Добавь метод __init__, который принимает x и y и сохраняет их.
+# 3. Создай класс `Point3D(Point)` с __slots__ = ['z'] (только z, x и y уже есть в родителе).
+# 4. Добавь в Point3D метод __init__, который принимает x, y, z.
+#    Вызови super().__init__(x, y) и сохрани z.
+# 5. Создай объект `p = Point3D(1, 2, 3)`.
+# 6. Выведи p.x, p.y, p.z.
+# 7. Попробуй создать новый атрибут `p.color = "red"` и посмотри, что будет (закомментируй эту строку).
+# Подсказка: __slots__ ограничивает набор атрибутов. В дочерних классах нужно
+#           добавлять свои __slots__, чтобы расширить список разрешённых атрибутов.
+class Point:
+    __slots__ = ["x", "y"]
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+class Point3D(Point):
+    __slots__ = ["z"]
+    def __init__(self, x, y, z):
+        super().__init__(x, y)
+        self.z = z
+p = Point3D(1, 2, 3)
+print(p.x, p.y, p.z)
+#p.color = "red"
+print(p.x, p.y, p.z)
+
