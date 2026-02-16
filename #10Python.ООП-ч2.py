@@ -645,3 +645,141 @@ print(p.x, p.y, p.z)
 #p.color = "red"
 print(p.x, p.y, p.z)
 
+# Задание 26: Наследование и сравнение объектов
+# 1. Создай класс `Person` с методом __init__, который принимает name и age.
+# 2. Перегрузи метод __eq__ (равенство), чтобы он сравнивал возраст двух объектов.
+#    Два человека считаются равными, если у них одинаковый возраст.
+# 3. Перегрузи метод __lt__ (меньше), чтобы он сравнивал возраст.
+# 4. Создай класс `Employee(Person)`, внутри pass.
+# 5. Создай объекты:
+#    - p1 = Person("Анна", 25)
+#    - p2 = Person("Иван", 30)
+#    - e1 = Employee("Петр", 25)
+# 6. Выведи результаты сравнений:
+#    - p1 == p2
+#    - p1 == e1 (сравнение Person и Employee)
+#    - p1 < p2
+# Подсказка: методы сравнения наследуются и работают с объектами любого дочернего класса.
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    def __eq__ (self, other):
+        return self.name == other.name
+    def __lt__(self, other):
+        return self.name < other.name
+class Employee(Person):
+    pass
+p1 = Person("Анна", 25)
+p2 = Person("Иван", 30)
+e1 = Employee("Петр", 25)
+print(p1 == p2)
+print(p1 == e1)
+print(p1 < p2)
+
+# Задание 27: Наследование и декораторы
+# 1. Создай класс `Logger` с методом `log(message)`, который выводит f"LOG: {message}".
+# 2. Создай класс `Application` с методом `run`, который выводит "Приложение запущено".
+# 3. Создай класс `LoggedApplication(Application, Logger)` (в этом порядке).
+# 4. В классе `LoggedApplication` переопредели метод `run`, чтобы он:
+#    - Сначала вызывал `self.log("Запуск приложения")`
+#    - Потом вызывал родительский `run` через `super().run()`
+# 5. Создай объект `app = LoggedApplication()` и вызови `app.run()`.
+# Подсказка: множественное наследование позволяет комбинировать функциональность.
+class Logger:
+    def log(self, message) -> None:
+        print(f"LOG: {message}")
+class Application:
+    def run(self) -> None:
+        print("Приложение запущено")
+class LoggedApplication(Application, Logger):
+    def run(self):
+        self.log("Запуск приложения")
+        super().run()
+app = LoggedApplication()
+app.run()
+
+# Задание 28: Наследование и композиция
+# 1. Создай класс `Engine` с методом `start`, который возвращает "Двигатель запущен".
+# 2. Создай класс `Wheels` с методом `rotate`, который возвращает "Колёса крутятся".
+# 3. Создай класс `Car`, который НЕ наследуется от Engine и Wheels, а использует их внутри.
+#    - В `__init__` создай атрибуты `self.engine = Engine()` и `self.wheels = Wheels()`.
+#    - Добавь метод `drive`, который вызывает `engine.start()` и `wheels.rotate()`
+#      и возвращает объединённую строку (например, через f"{self.engine.start()} {self.wheels.rotate()}").
+# 4. Создай объект `car = Car()` и выведи результат метода `drive()`.
+# Подсказка: это композиция (объект содержит другие объекты), а не наследование.
+class Engine:
+    def start(self):
+        return "Двигатель запущен"
+class Wheels:
+    def rotate(self):
+        return "Колёса крутятся"
+class Car:
+    def __init__(self):
+        self.wheels = Wheels()
+        self.engine = Engine()
+    def drive(self):
+        return f"{self.engine.start()} {self.wheels.rotate()}"
+car = Car()
+print(car.drive())
+
+# Задание 29: Наследование и isinstance с интерфейсами
+# 1. Создай класс `Flyable` (интерфейс) с методом `fly`, который возвращает "Летит".
+# 2. Создай класс `Swimmable` (интерфейс) с методом `swim`, который возвращает "Плывёт".
+# 3. Создай класс `Duck(Flyable, Swimmable)`:
+#    - Реализуй метод `fly` (возвращает "Утка летит")
+#    - Реализуй метод `swim` (возвращает "Утка плывёт")
+# 4. Создай класс `Plane(Flyable)`:
+#    - Реализуй метод `fly` (возвращает "Самолёт летит")
+# 5. Создай функцию `test_fly(obj)`, которая проверяет `isinstance(obj, Flyable)`:
+#    - Если да, вызывает и выводит `obj.fly()`
+#    - Если нет, выводит "Не умеет летать"
+# 6. Создай объекты `duck = Duck()` и `plane = Plane()`.
+# 7. Вызови `test_fly` для каждого.
+# Подсказка: интерфейсы — это просто классы, от которых наследуются.
+class Flyable:
+    def fly(self):
+        return "Летит"
+class Swimmable:
+    def swim(self):
+        return "Плывёт"
+class Duck(Flyable, Swimmable):
+    def fly(self):
+        return "Утка летит"
+    def swim(self):
+        return "Утка плывёт"
+class Plane(Flyable):
+    def fly(self):
+        return "Самолёт летит"
+def test_fly(obj):
+        if isinstance(obj, Flyable):
+            print(obj.fly())
+        else:
+            print("Не умеет летать")
+duck = Duck()
+plane = Plane()
+test_fly(plane)
+test_fly(duck)
+
+# Задание 30: Цепочка наследования
+# 1. Создай класс `Grandparent` с методом `who`, который возвращает "Я дедушка/бабушка".
+# 2. Создай класс `Parent(Grandparent)` с методом `who`, который возвращает "Я родитель".
+#    Внутри метода вызови `super().who()` и сохрани результат, но верни только свою строку.
+# 3. Создай класс `Child(Parent)` с методом `who`, который возвращает "Я ребёнок".
+#    Внутри метода вызови `super().who()` и сохрани результат, но верни только свою строку.
+# 4. Создай объект `child = Child()` и вызови его метод `who()`.
+# 5. Выведи результат.
+# Подсказка: методы вызываются по цепочке, но каждая ступень может делать что-то своё.
+class Grandparent:
+    def who(self):
+        return "Я дедушка/бабушка"
+class Parent(Grandparent):
+    def who(self):
+        result = super().who()
+        return "Я родитель"
+class Child(Parent):
+    def who(self):
+        result1 = super().who()
+        return "Я ребёнок"
+child = Child()
+print(child.who())
