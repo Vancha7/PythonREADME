@@ -383,3 +383,86 @@ class User:
         self.__password = password
     def check_password(self, password):
         return password == self.__password
+
+# Задача №26 | Магический метод __repr__
+# 1. Создай класс Point.
+# 2. Добавь конструктор, который принимает x и y.
+# 3. Добавь магический метод __repr__, который возвращает строку:
+#    f"Point({self.x}, {self.y})"
+# 4. Код должен содержать только объявление класса.
+class Point:
+    def __init__(self, x, y):
+        self.x = x
+        self.y = y
+    def __repr__(self):
+        return f"Point({self.x}, {self.y})"
+
+# Задача №27 | Свойства (property) - геттер и сеттер
+# 1. Создай класс BankAccount.
+# 2. Добавь конструктор, который принимает owner и balance (начальный баланс).
+# 3. Сделай атрибут balance приватным (__balance).
+# 4. Добавь свойство balance (геттер), которое возвращает текущий баланс.
+# 5. Добавь сеттер для balance, который проверяет:
+#    - если новое значение >= 0, то сохраняет его
+#    - если новое значение < 0, то ничего не меняет
+# 6. Код должен содержать только объявление класса.
+class BankAccount:
+    def __init__(self, owner,balance):
+        self.owner = owner
+        self.__balance = balance
+    @property
+    def balance(self):
+        return self.__balance
+    @balance.setter
+    def balance(self, value):
+        if value >= 0:
+            self.__balance = value
+
+# Задача №28 | Наследование и переопределение методов
+# 1. Создай класс Vehicle.
+# 2. Добавь конструктор, который принимает brand и speed.
+# 3. Добавь метод move, который возвращает строку "Транспорт движется".
+# 4. Создай класс Car, который наследует от Vehicle.
+# 5. Переопредели метод move так, чтобы он возвращал строку "Машина едет со скоростью {speed} км/ч".
+# 6. Код должен содержать только объявление классов.
+class Vehicle:
+    def __init__(self, brand, speed):
+        self.brand = brand
+        self.speed = speed
+    def move(self):
+        return "Транспорт движется"
+class Car(Vehicle):
+    def move(self):
+        return f"Машина едет со скоростью {self.speed} км/ч"
+
+# Задача №29 | super() в конструкторе
+# 1. Создай класс Person.
+# 2. Добавь конструктор, который принимает name и age.
+# 3. Создай класс Student, который наследует от Person.
+# 4. В конструкторе Student добавь третий параметр student_id.
+# 5. Используй super(), чтобы вызвать конструктор Person и передать ему name и age.
+# 6. student_id сохрани как атрибут экземпляра в классе Student.
+# 7. Код должен содержать только объявление классов.
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+class Student(Person):
+    def __init__(self, name, age, student_id):
+        super().__init__(name, age)
+        self.student_id = student_id
+
+# Задача №30 | Множественное наследование и порядок разрешения методов
+# 1. Создай класс A с методом info, который возвращает "Class A".
+# 2. Создай класс B с методом info, который возвращает "Class B".
+# 3. Создай класс C, который наследует от A и B (в указанном порядке: сначала A, потом B).
+# 4. В классе C НЕ переопределяй метод info.
+# 5. Код должен содержать только объявление трёх классов.
+class A:
+    def info(self):
+        return "Class A"
+class B:
+    def info(self):
+        return "Class B"
+class C(A,B):
+    pass
