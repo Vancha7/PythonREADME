@@ -418,3 +418,67 @@ has_duration = "duration" in course.keys()
 has_free = 0 in course.values()
 no_teacher = 'teacher' not in course.keys()
 print(f"Длительность есть? {has_duration} | Бесплатный? {has_free} | Учителя нет? {no_teacher}")
+
+# Задача #31. | Добавление и обновление элементов словаря
+# У вас есть словарь: settings = {'theme': 'dark', 'language': 'en'}
+# 1. Обновите словарь одним действием, добавив в него две пары:
+#    'notifications' со значением True и 'font_size' со значением 14.
+#    (Используйте метод update() с передачей другого словаря).
+# 2. После обновления выведите на экран все значения словаря в одну строку через запятую с пробелом.
+#    (Подсказка: преобразуйте объект dict_values в строку).
+settings = {'theme': 'dark', 'language': 'en'}
+settings.update({'notifications': True, 'font_size': 14})
+dict_values = [str(value) for value in settings.values()]
+print(", ".join(dict_values))
+
+# Задача #32. | Получение элементов, ключей и значений словаря
+# Дан словарь: fruits = {'apple': 5, 'banana': 3, 'orange': 8, 'kiwi': 1}
+# 1. Получите список всех ключей словаря и сохраните его в переменную 'fruit_names'.
+# 2. Получите список всех значений словаря и сохраните его в переменную 'fruit_quantities'.
+# 3. Выведите на экран:
+#    - Первый элемент списка fruit_names
+#    - Последний элемент списка fruit_quantities
+fruits = {'apple': 5, 'banana': 3, 'orange': 8, 'kiwi': 1}
+fruit_names = fruits.keys()
+fruit_quantities = fruits.values()
+print(list(fruit_names)[0])
+print(list(fruit_quantities)[-1])
+
+# Задача #33. | Создание словаря
+# 1. Создайте словарь 'laptop' с помощью фигурных скобок {}.
+#    Он должен содержать три пары:
+#    'brand' (бренд) - строка 'HP',
+#    'ram' (оперативная память) - целое число 8,
+#    'ssd' (объём накопителя) - целое число 256.
+# 2. Выведите на экран значение ключа 'ram'.
+# 3. Выведите на экран значение ключа 'ssd'.
+laptop = {
+    "brand": "HP",
+    "ram": 8,
+    "ssd": 256
+}
+print(laptop["ram"])
+print(laptop["ssd"])
+
+# Задача #34. | Доступ к элементам словаря по ключу
+# Дан словарь: book = {'title': '1984', 'author': 'Оруэлл', 'year': 1949, 'pages': 328}
+# 1. Получите значение по ключу 'title' и сохраните в переменную 'book_title'.
+# 2. Получите значение по ключу 'pages' и сохраните в переменную 'total_pages'.
+# 3. Выведите на экран строку: "Книга '1984' содержит 328 страниц."
+#    В строке должны использоваться переменные 'book_title' и 'total_pages'.
+book = {'title': '1984', 'author': 'Оруэлл', 'year': 1949, 'pages': 328}
+book_title = book["title"]
+total_pages = book["pages"]
+print(f"Книга '{book_title}' содержит {total_pages} страниц.")
+
+# Задача #35. | Проверка на наличие ключей и значений
+# Дан словарь: event = {'name': 'Вечеринка', 'date': '31.12', 'time': '23:00', 'paid': False}
+# 1. Проверьте, есть ли в словаре ключ 'time'. Результат сохраните в переменную 'has_time'.
+# 2. Проверьте, есть ли в словаре значение False. Результат сохраните в переменную 'is_free'.
+# 3. Проверьте, отсутствует ли ключ 'place' в словаре. Результат сохраните в переменную 'no_place'.
+# 4. Выведите все три переменные на экран в одну строку через пробел.
+event = {'name': 'Вечеринка', 'date': '31.12', 'time': '23:00', 'paid': False}
+has_time = "time" in event.keys()
+is_free = False in event.values()
+no_place = "place" not in event.keys()
+print(has_time, is_free, no_place)
