@@ -466,3 +466,60 @@ class B:
         return "Class B"
 class C(A,B):
     pass
+
+# Задача №31 | Счётчик объектов
+# 1. Создай класс Magic.
+# 2. Добавь общий (классовый) атрибут spell_count = 0.
+# 3. Добавь конструктор, который при создании каждого нового объекта увеличивает spell_count на 1.
+# 4. Добавь классовый метод get_spell_count, который возвращает текущее значение spell_count.
+# 5. Добавь метод cast_spell, который возвращает строку "Абракадабра!".
+# 6. Код должен содержать только объявление класса.
+class Magic:
+    spell_count = 0
+    def __init__(self):
+        Magic.spell_count += 1
+    @classmethod
+    def get_spell_count(cls):
+        return cls.spell_count
+    def cast_spell(self):
+        return "Абракадабра!"
+
+# Задача №32 | Магический метод __add__
+# 1. Создай класс Box.
+# 2. Добавь конструктор, который принимает items (список предметов).
+# 3. Добавь магический метод __add__, который объединяет две коробки.
+#    При сложении box1 + box2 должен возвращаться новый объект Box,
+#    у которого items = box1.items + box2.items.
+# 4. Код должен содержать только объявление класса.
+class Box:
+    def __init__(self, items):
+        self.items = items
+    def __add__(self, other):
+        return Box(self.items + other.items)
+
+# Задача №33 | Композиция классов
+# 1. Создай класс Author.
+# 2. Добавь конструктор, который принимает name и country.
+# 3. Создай класс Book.
+# 4. Добавь конструктор, который принимает title и author (объект класса Author).
+# 5. Добавь метод get_info, который возвращает строку:
+#    f"'{title}' by {author.name} ({author.country})"
+# 6. Код должен содержать только объявление двух классов.
+class Author:
+    def __init__(self, name, country):
+        self.name = name
+        self.country = country
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+    def get_info(self):
+        return f"'{self.title}' by {self.author.name} ({self.author.country})"
+
+# Задача №34 | Приватные атрибуты и методы доступа
+# 1. Создай класс Wallet.
+# 2. Добавь конструктор, который принимает owner и amount.
+# 3. Сделай атрибут amount приватным (__amount).
+# 4. Добавь метод add_money, который принимает сумму и увеличивает __amount на эту сумму.
+# 5. Добавь метод get_amount, который возвращает текущее значение __amount.
+# 6. Код должен содержать только объявление класса.
