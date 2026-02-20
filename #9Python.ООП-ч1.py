@@ -523,3 +523,29 @@ class Book:
 # 4. Добавь метод add_money, который принимает сумму и увеличивает __amount на эту сумму.
 # 5. Добавь метод get_amount, который возвращает текущее значение __amount.
 # 6. Код должен содержать только объявление класса.
+class Wallet:
+    def __init__(self, owner, amount):
+        self.owner = owner
+        self.__amount = amount
+    def add_money(self, sum_amount):
+        self.__amount += sum_amount
+    def get_amount(self):
+        return self.__amount
+
+# Задача №35 | Свойства (property) с вычисляемым значением
+# 1. Создай класс Rectangle.
+# 2. Добавь конструктор, который принимает width и height.
+# 3. Сделай атрибуты width и height публичными (не приватными).
+# 4. Добавь свойство area (только геттер), которое возвращает площадь прямоугольника.
+# 5. Добавь свойство perimeter (только геттер), которое возвращает периметр.
+# 6. Код должен содержать только объявление класса.
+class Rectangle:
+    def __init__(self, width, height):
+        self.width = width
+        self.height = height
+    @property
+    def area(self):
+        return self.width * self.height
+    @property
+    def perimeter(self):
+        return 2 * (self.width + self.height)
