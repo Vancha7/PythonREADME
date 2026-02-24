@@ -783,3 +783,122 @@ class Child(Parent):
         return "Я ребёнок"
 child = Child()
 print(child.who())
+
+# Задание 31: Наследование и счётчик объектов
+# 1. Создай класс `Counter` с атрибутом класса `total_objects = 0`.
+# 2. В `__init__` увеличивай `Counter.total_objects` на 1.
+# 3. Добавь метод `get_count`, который возвращает `Counter.total_objects`.
+# 4. Создай класс `MyClass(Counter)`, внутри `pass`.
+# 5. Создай три объекта: два от `Counter` и один от `MyClass`.
+# 6. Выведи общее количество созданных объектов через `get_count` у любого объекта.#
+# Подсказка: атрибут класса общий для всех, включая наследников.
+class Counter:
+    total_objects = 0
+    def __init__(self):
+        Counter.total_objects += 1
+    def get_count(self):
+        return Counter.total_objects
+class MyClass(Counter):
+    pass
+counter1 = Counter()
+counter2 = Counter()
+my_class = MyClass()
+print(counter1.get_count())\
+
+# Задание 32: Наследование и переопределение __str__ с super
+# 1. Создай класс `Book` с методом __init__, который принимает `title` и `author`.
+# 2. Переопредели метод `__str__`, чтобы он возвращал f"'{title}' by {author}".
+# 3. Создай класс `EBook(Book)` с методом __init__, который принимает `title`, `author` и `size_mb`.
+#    Вызови super().__init__(title, author) и сохрани `size_mb`.
+# 4. Переопредели метод `__str__` в `EBook`:
+#    - Вызови super().__str__() и сохрани результат
+#    - Верни f"{результат_от_родителя}, Size: {size_mb}MB"
+# 5. Создай объект `ebook = EBook("1984", "Оруэлл", 2.5)` и выведи его через `print()`.
+# Подсказка: super().__str__() вернёт строку от родителя, которую можно использовать.
+class Book:
+    def __init__(self, title, author):
+        self.title = title
+        self.author = author
+    def __str__(self):
+        return f"'{self.title}' by {self.author}"
+class EBook(Book):
+    def __init__(self, title, author, size_mb):
+        super().__init__(title, author)
+        self.size_mb = size_mb
+    def __str__(self):
+        book_str = super().__str__()
+        return f"{book_str}, Size: {self.size_mb}MB"
+ebook = EBook("1984", "Оруэлл", 2.5)
+print(ebook)
+
+# Задание 33: Наследование и множественное наследование с одинаковыми методами
+# 1. Создай класс `A` с методом `say_hello`, который возвращает "Привет от A".
+# 2. Создай класс `B` с методом `say_hello`, который возвращает "Привет от B".
+# 3. Создай класс `C(A, B)` (в этом порядке), внутри `pass`.
+# 4. Создай класс `D(B, A)` (в этом порядке), внутри `pass`.
+# 5. Создай объекты `c = C()` и `d = D()`.
+# 6. Выведи результаты `c.say_hello()` и `d.say_hello()`.
+# 7. Выведи `C.__mro__` и `D.__mro__` чтобы увидеть порядок поиска методов.
+# Подсказка: метод берётся из первого класса в цепочке наследования, где он найден.
+class A:
+    def say_hello(self):
+        return "Привет от A"
+class B:
+    def say_hello(self):
+        return "Привет от B"
+class C(A, B):
+    pass
+class D(B, A):
+    pass
+c = C()
+d = D()
+print(c.say_hello())
+print(d.say_hello())
+print(C.__mro__)
+print(D.__mro__)
+
+# Задание 34: Наследование и вызов родительского метода с аргументами
+# 1. Создай класс `Printer` с методом `print_message(self, text)`, который выводит f"Печать: {text}".
+# 2. Создай класс `ColoredPrinter(Printer)`.
+# 3. В классе `ColoredPrinter` переопредели метод `print_message`, который принимает `text` и `color`.
+#    - Вызови родительский метод `print_message` через `super().print_message(text)`
+#    - Добавь вывод: f"Цвет: {color}"
+# 4. Создай объект `cp = ColoredPrinter()`.
+# 5. Вызови `cp.print_message("Привет", "красный")`.
+# Подсказка: родительский метод ожидает только `text`, поэтому передаём ему только текст.
+class Printer:
+    def print_message(self,text):
+        print(f"Печать: {text}")
+class ColoredPrinter(Printer):
+    def print_message(self, text, color):
+        super().print_message(text)
+        print(f"Цвет: {color}")
+cp = ColoredPrinter()
+cp.print_message("Привет", "красный")
+
+# Задание 35: Наследование и проверка атрибутов
+# 1. Создай класс `Vehicle` с методом `__init__`, который принимает `brand` и `model`.
+# 2. Добавь метод `info`, который возвращает f"{brand} {model}".
+# 3. Создай класс `Car(Vehicle)` с методом `__init__`, который принимает `brand`, `model`, `doors`.
+#    Вызови super().__init__(brand, model) и сохрани `doors`.
+# 4. Переопредели метод `info` так, чтобы он возвращал f"{super().info()}, дверей: {doors}".
+# 5. Создай объект `car = Car("Toyota", "Corolla", 4)`.
+# 6. Выведи результат `car.info()`.
+# 7. Проверь через `hasattr(car, 'doors')` и `hasattr(car, 'brand')`, выведи результаты.
+# Подсказка: hasattr(объект, 'имя_атрибута') возвращает True/False.
+class Vehicle:
+    def __init__(self, brand, model):
+        self.brand = brand
+        self.model = model
+    def info(self):
+        return f"{self.brand} {self.model}"
+class Car(Vehicle):
+    def __init__(self, brand, model, doors):
+        super().__init__(brand, model)
+        self.doors = doors
+    def info(self):
+        return f"{super().info()}, дверей: {self.doors}"
+car = Car("Toyota", "Corolla", 4)
+print(car.info())
+print(hasattr(car, "doors"))
+print(hasattr(car, "brand"))
