@@ -506,3 +506,4 @@ def multiply_default(x, y=2):
     return x * y
 print(multiply_default(10))
 print(multiply_default(5,4))
+
